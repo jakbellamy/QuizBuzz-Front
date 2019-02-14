@@ -34,11 +34,11 @@ class App extends Component {
           case 'quizForm':
             return <QuizForm resultsClick={this.resultsClick} holdQuiz={this.holdQuiz}/>
           case 'createQuestion': 
-            return <QuestionForm answersClick={this.answersClick} holdQuestion={this.holdQuestion}/>
+            return <QuestionForm answersClick={this.answersClick} holdQuestion={this.holdQuestion} quiz={this.state.quiz}/>
           case 'createAnswers': 
             return <AnswerForm homeClick={this.homeClick} questionClick={this.questionClick} question={this.state.question}/>
           case 'createResults':
-            return <ResultForm questionClick={this.questionClick}/>
+            return <ResultForm quiz={this.state.quiz} questionClick={this.questionClick}/>
           case 'home':
             return <Home />
         }

@@ -7,8 +7,8 @@ export default class AnswerForm extends Component {
       counter: 1
     }
 
-  postQuestion = () => {
-    fetch(`http://localhost:1234/answer/create/${this.props.question}`, {
+  postAnswer = () => {
+    fetch(`http://localhost:1234/answer/create/${this.props.question._id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ export default class AnswerForm extends Component {
       body: JSON.stringify(this.state.answer)
     })}
 
-  nextQuestion = () => {
+  nextAnswer = () => {
     this.setState({counter: 1 + this.state.counter})
     document.getElementById('answer-form').reset()
   }
@@ -26,29 +26,41 @@ export default class AnswerForm extends Component {
     this.setState({
       answer: {
         placement: this.state.counter,
-        text: e.target.answerText.value,
-        img_url: e.target.answerImgUrl.value,
+        text: document.querySelector('#input-text').value,
+        img_url: document.querySelector('#input-img').value,
       }
     }, () => {
-      this.postQuestion()
-      this.nextQuestion()
+      this.postAnswer()
+      if(this.state.counter < 4) {
+      this.nextAnswer()
+      }
     })}
-    
+
+    toQuestion = (e) => {
+      this.handleSubmit(e)
+    }
+
   render() {
     let submit = <input type="submit" value="Next Answer" />
     let overFour =
       <div>
-      <button style={{textAlign: 'right'}} onClick={() => this.props.questionClick()}>Next Question</button>
-      <button style={{textAlign: 'right'}} onClick={() => this.props.homeClick()}>Finished</button></div>
+      <button onClick={(e) => {
+        this.handleSubmit(e)
+        this.props.questionClick()
+        }} style={{textAlign: 'right'}}>Next Question</button>
+      <button onClick={(e) => {
+        this.handleSubmit(e)
+        this.props.homeClick()
+      }} style={{textAlign: 'right'}}>Finished</button></div>
 
     return (
       <div>
           <h4>Answer {this.state.counter}/4</h4>
             <form onSubmit={this.handleSubmit} id="answer-form">
               <div className="ui fluid icon input">
-                <input type="text" name="answerText" placeholder='Answer Here'/></div>
+                <input id="input-text" type="text" name="answerText" placeholder='Answer Here'/></div>
               <div className="ui fluid icon input">
-                <input type="text" name="answerImgUrl" placeholder='(Optional) Image URL Here'/>
+                <input id="input-img" type="text" name="answerImgUrl" placeholder='(Optional) Image URL Here'/>
               <input type="text" name="connectedResult" placeholder='Connected Result Here'/></div>
               {this.state.counter < 4 ? submit : overFour}
             </form>

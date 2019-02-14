@@ -18,7 +18,7 @@ exports.question_create = function (req, res, next) {
             if (err) {
                 return next(err);
             }
-            res.send('Question Created successfully')
+            res.send(question)
         })
     });
 

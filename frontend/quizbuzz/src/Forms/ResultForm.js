@@ -1,41 +1,59 @@
 import React, { Component } from 'react'
 
 export default class ResultForm extends Component {
+  
   state = {
-    quiz: {}
+    result: {},
+    counter: 1
   }
 
-  // updateResultOne = (e) => {this.setState({authorValue: e.target.value})}
+postResult = () => {
+  fetch(`http://localhost:1234/result/create/${this.props.quiz._id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(this.state.result)
+  })}
 
-  // handleSubmit = (e) => {
-  //   e.preventDefault
-    
-  // }
+nextResult = () => {
+  this.setState({counter: 1 + this.state.counter})
+  document.getElementById('result_form').reset()
+}
 
-  render() {
-    return (
-      <div>
-        <h3>Define results for [quiz.title goes here]</h3>
-          <h5>First Result</h5>
-             <div className="ui fluid icon input"><input type="text" placeholder='Result Title Here'/>
-            <input type="text" placeholder='(Optional) Image URL Here'/></div>
-            <div className="ui fluid icon input"><input type="textarea" placeholder='Result Blurb Here'/></div>
-          <h5>Second Result</h5>
-            <div className="ui fluid icon input"><input type="text" placeholder='Result Title Here'/>
-            <input type="text" placeholder='(Optional) Image URL Here'/></div>
-            <div className="ui fluid icon input"><input type="textarea" placeholder='Result Blurb Here'/></div>
-          <h5>Third Result</h5>
-            <div className="ui fluid icon input"><input type="text" placeholder='Result Title Here'/>
-            <input type="text" placeholder='(Optional) Image URL Here'/></div>
-            <div className="ui fluid icon input"><input type="textarea" placeholder='Result Blurb Here'/></div>
-          <h5>Fourth Result</h5>
-            <div className="ui fluid icon input"><input type="text" placeholder='Result Title Here'/>
-            <input type="text" placeholder='(Optional) Image URL Here'/></div>
-            <div className="ui fluid icon input"><input type="textarea" placeholder='Result Blurb Here'/></div>
-          <div>
-              <button style={{textAlign: 'right'}} onClick={() => this.props.questionClick()}>Define Questions</button>
-          </div>
-     </div>
-    )
-  }
+handleSubmit = (e) => {
+  e.preventDefault()
+  this.setState({
+    result: {
+      title: e.target.title.value,
+      img_url: e.target.img.value,
+      blurb: e.target.blurb.value
+    }
+  }, () => {
+    this.postResult()
+    if(this.state.counter < 4) {
+      this.nextResult()
+    } else {
+      this.props.questionClick()
+    }
+  })}
+  
+render() {
+  let submit = <input type="submit" value="Next Result" />
+  let overFour =  <button type="submit" style={{textAlign: 'right'}}  >Create Questions</button>
+
+  return (
+    <div>
+        <h4>Result {this.state.counter}/4</h4>
+          <form onSubmit={this.handleSubmit} id="result_form">
+            <div className="ui fluid icon input">
+              <input type="text" name="title" placeholder='Result card title'/></div>
+            <div className="ui fluid icon input">
+              <input type="text" name="img" placeholder='(Optional) Image URL Here'/>
+            <input type="textarea" name="blurb" placeholder='Write a blurb here!'/></div>
+            {this.state.counter < 4 ? submit : overFour}
+          </form>
+    </div>
+  )
+}
 }
