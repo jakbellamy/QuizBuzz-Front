@@ -3,7 +3,7 @@ import { Button, Checkbox, Form } from 'semantic-ui-react'
 export default class QuestionForm extends Component {
 
   state = {
-    quizID: ''
+    quiz: {}
   }
 
   

@@ -7,12 +7,19 @@ const quiz = require('./routes/quiz.route');
 const result = require('./routes/result.route');
 const app = express();
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/quiz', quiz);
 app.use('/question', question);
 app.use('/result', result);
 app.use('/answer', answer);
+
 
 let port = 1234;
 

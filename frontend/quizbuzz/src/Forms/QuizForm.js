@@ -22,6 +22,7 @@ export default class QuizForm extends Component {
           author: this.state.authorValue
       })
     })
+    this.props.resultsClick()
   }
 
   updateTitle = (e) => {
@@ -31,7 +32,7 @@ export default class QuizForm extends Component {
   }
   updateAuthor = (e) => {
     this.setState({
-      titleValue: e.target.value
+      authorValue: e.target.value
     })
   }
 
@@ -43,7 +44,7 @@ export default class QuizForm extends Component {
           <h3>Ttile</h3>
             <input onChange={e => this.updateTitle(e)} placeholder='Ex. Which Office Character are You?'/>
           <h3>Author</h3>
-            <input onChange={e => this.updateAuthor(e)} placeholder='Ex. Austin Plucket CEO of BuzzQuiz' />
+            <input onChange={e => this.updateAuthor(e)} placeholder='Ex. Austin Plucket CEO of QuizBuzz' />
         </div>
         <button onClick={e => this.postQuiz(e)}>Create Question</button>
       </div>
