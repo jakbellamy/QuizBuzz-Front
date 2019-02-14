@@ -5,6 +5,13 @@ export default class ResultForm extends Component {
     quiz: {}
   }
 
+  // updateResultOne = (e) => {this.setState({authorValue: e.target.value})}
+
+  // handleSubmit = (e) => {
+  //   e.preventDefault
+    
+  // }
+
   render() {
     return (
       <div>

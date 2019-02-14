@@ -6,12 +6,12 @@ import QuizForm from './Forms/QuizForm';
 import Home from './Components/Home';
 import AnswerForm from './Forms/AnswerForm';
 import ResultForm from './Forms/ResultForm';
-
+// import {BrowserRouter, Routes} from 'react-dom-router'
 
 class App extends Component {
   
   state ={
-    show: null
+    show: 'createAnswers'
   }
 
   quizClick = () => {this.setState({show: 'quizForm'})}
@@ -35,8 +35,6 @@ class App extends Component {
           case 'createResults':
             return <ResultForm questionClick={this.questionClick}/>
           case 'home':
-            return <Home />
-          default:
             return <Home />
         }
       })()}
