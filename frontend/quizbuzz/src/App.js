@@ -11,15 +11,20 @@ import ResultForm from './Forms/ResultForm';
 class App extends Component {
   
   state ={
-    show: 'createAnswers'
+    show: 'home',
+    quiz: '5c6599047cf712289c18ddb1',
+    question: '5c6454a81c9d440000ebb0d4'
   }
 
   quizClick = () => {this.setState({show: 'quizForm'})}
   questionClick = () => {this.setState({show: 'createQuestion'})}
   answersClick = () => {this.setState({show: 'createAnswers'})}
   resultsClick = () => {this.setState({show: 'createResults'})}
-  homeClick = () => {{this.setState({show: 'home'})}}
+  homeClick = () => {this.setState({show: 'home'})}
   
+  holdQuiz = (quiz) => {this.setState({quiz: quiz})}
+  holdQuestion = (question) => {this.setState({question: question})}
+
   render() {
     return (
       <div>
@@ -27,11 +32,11 @@ class App extends Component {
        {(() => {
         switch(this.state.show) {
           case 'quizForm':
-            return <QuizForm resultsClick={this.resultsClick}/>
+            return <QuizForm resultsClick={this.resultsClick} holdQuiz={this.holdQuiz}/>
           case 'createQuestion': 
-            return <QuestionForm answersClick={this.answersClick}/>
+            return <QuestionForm answersClick={this.answersClick} holdQuestion={this.holdQuestion}/>
           case 'createAnswers': 
-            return <AnswerForm homeClick={this.homeClick} questionClick={this.questionClick}/>
+            return <AnswerForm homeClick={this.homeClick} questionClick={this.questionClick} question={this.state.question}/>
           case 'createResults':
             return <ResultForm questionClick={this.questionClick}/>
           case 'home':
