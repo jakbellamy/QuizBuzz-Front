@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 export default class QuestionForm extends Component {
 
-  state = {
-    quiz: {}
-  }
 
-  
   render() {
     return (
         <div>

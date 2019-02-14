@@ -22,6 +22,8 @@ export default class QuizForm extends Component {
           author: this.state.authorValue
       })
     })
+    .then(res => res.json())
+    .then(res => this.props.holdQuiz(res))
     this.props.resultsClick()
   }
 

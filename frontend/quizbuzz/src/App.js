@@ -12,15 +12,15 @@ class App extends Component {
   
   state ={
     show: 'home',
-    quiz: '5c6599047cf712289c18ddb1',
-    question: '5c6454a81c9d440000ebb0d4'
+    quiz: {},
+    question: {}
   }
 
   quizClick = () => {this.setState({show: 'quizForm'})}
-  questionClick = () => {this.setState({show: 'createQuestion'})}
+  questionClick = () => {this.setState({show: 'createQuestion', question: {}})}
   answersClick = () => {this.setState({show: 'createAnswers'})}
   resultsClick = () => {this.setState({show: 'createResults'})}
-  homeClick = () => {this.setState({show: 'home'})}
+  homeClick = () => {this.setState({show: 'home', quiz:{}, question: {}})}
   
   holdQuiz = (quiz) => {this.setState({quiz: quiz})}
   holdQuestion = (question) => {this.setState({question: question})}

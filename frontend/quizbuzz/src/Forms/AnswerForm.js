@@ -32,12 +32,8 @@ export default class AnswerForm extends Component {
     }, () => {
       this.postQuestion()
       this.nextQuestion()
-    }
-    )
-  }
-
-
-
+    })}
+    
   render() {
     let submit = <input type="submit" value="Next Answer" />
     let overFour =
