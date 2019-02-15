@@ -83,6 +83,10 @@ export default class AnswerForm extends Component {
       <button onClick={(e) => this.handleSubmitforNextQ(e)} style={{textAlign: 'right'}}>Next Question</button>
       <button onClick={(e) => this.handleSubmitForFinished(e)} style={{textAlign: 'right'}}>Finished</button></div>
 
+        let results = this.props.quiz.results.map(result => {
+          return <option value="{result.title}">{result.title.toUpperCase()}</option>
+        })
+
     return (
       <div>
           <h4>Answer {this.state.counter}/4</h4>
@@ -91,7 +95,10 @@ export default class AnswerForm extends Component {
                 <input id="input-text" type="text" name="answerText" placeholder='Answer Here'/></div>
               <div className="ui fluid icon input">
                 <input id="input-img" type="text" name="answerImgUrl" placeholder='(Optional) Image URL Here'/>
-              <input type="text" name="connectedResult" placeholder='Connected Result Here'/></div>
+              </div>
+              <select>
+                {results}
+              </select>
               {this.state.counter < 4 ? submit : overFour}
             </form>
       </div>

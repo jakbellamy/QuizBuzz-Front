@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 export default class ResultForm extends Component {
-  
+
   state = {
     result: {},
     counter: 1
@@ -31,13 +31,14 @@ handleSubmit = (e) => {
     }
   }, () => {
     this.postResult()
+    this.props.updateQuizwithResult(this.state.result)
     if(this.state.counter < 4) {
       this.nextResult()
     } else {
       this.props.questionClick()
     }
   })}
-  
+
 render() {
   let submit = <input type="submit" value="Next Result" />
   let overFour =  <button type="submit" style={{textAlign: 'right'}}  >Create Questions</button>
