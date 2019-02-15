@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 export default class AnswerForm extends Component {
-  
+
   state = {
       answer: {},
       counter: 1
@@ -30,28 +30,58 @@ export default class AnswerForm extends Component {
         img_url: document.querySelector('#input-img').value,
       }
     }, () => {
-      this.postAnswer()
+        this.postAnswer()
       if(this.state.counter < 4) {
-      this.nextAnswer()
+        this.nextAnswer()
       }
     })}
 
-    toQuestion = (e) => {
-      this.handleSubmit(e)
-    }
+    handleSubmitforNextQ = (e) => {
+      e.preventDefault()
+      this.setState({
+        answer: {
+          placement: this.state.counter,
+          text: document.querySelector('#input-text').value,
+          img_url: document.querySelector('#input-img').value,
+        }
+      }, () => {
+        fetch(`http://localhost:1234/answer/create/${this.props.question._id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.state.answer)
+        })
+        .then(this.props.questionClick)
+      })}
+
+      handleSubmitForFinished = (e) => {
+        e.preventDefault()
+        this.setState({
+          answer: {
+            placement: this.state.counter,
+            text: document.querySelector('#input-text').value,
+            img_url: document.querySelector('#input-img').value,
+          }
+        }, () => {
+          fetch(`http://localhost:1234/answer/create/${this.props.question._id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.answer)
+          })
+          .then(this.props.homeClick)
+        })
+      }
+
 
   render() {
     let submit = <input type="submit" value="Next Answer" />
     let overFour =
       <div>
-      <button onClick={(e) => {
-        this.handleSubmit(e)
-        this.props.questionClick()
-        }} style={{textAlign: 'right'}}>Next Question</button>
-      <button onClick={(e) => {
-        this.handleSubmit(e)
-        this.props.homeClick()
-      }} style={{textAlign: 'right'}}>Finished</button></div>
+      <button onClick={(e) => this.handleSubmitforNextQ(e)} style={{textAlign: 'right'}}>Next Question</button>
+      <button onClick={(e) => this.handleSubmitForFinished(e)} style={{textAlign: 'right'}}>Finished</button></div>
 
     return (
       <div>
